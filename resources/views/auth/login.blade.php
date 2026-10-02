@@ -1,0 +1,11 @@
+<x-guest-layout>
+    <div class="mb-8"><p class="eyebrow">Welcome back</p><h1 class="mt-2 text-3xl font-extrabold tracking-tight text-slate-950">Sign in to CarePoint</h1><p class="mt-2 text-sm leading-6 text-slate-500">Your care workspace is ready when you are.</p></div>
+    <x-auth-session-status class="mb-5" :status="session('status')" />
+    <form method="POST" action="{{ route('login') }}" class="space-y-5">@csrf
+        <div><x-input-label for="email" :value="__('Email address')" class="form-label" /><x-text-input id="email" class="auth-field" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" placeholder="you@example.com" /><x-input-error :messages="$errors->get('email')" class="mt-2" /></div>
+        <div x-data="{ show: false }"><div class="flex items-center justify-between"><x-input-label for="password" :value="__('Password')" class="form-label" />@if (Route::has('password.request'))<a class="text-xs font-bold text-blue-600 hover:text-blue-800" href="{{ route('password.request') }}">Forgot password?</a>@endif</div><div class="relative"><x-text-input id="password" class="auth-field pr-16" x-bind:type="show ? 'text' : 'password'" type="password" name="password" required autocomplete="current-password" placeholder="Enter your password" /><button type="button" @click="show = !show" class="absolute inset-y-0 right-3 my-auto h-8 rounded-lg px-2 text-xs font-bold text-slate-400 hover:text-blue-700" :aria-label="show ? 'Hide password' : 'Show password'" x-text="show ? 'Hide' : 'Show'"></button></div><x-input-error :messages="$errors->get('password')" class="mt-2" /></div>
+        <div class="flex items-center"><label for="remember_me" class="inline-flex cursor-pointer items-center gap-2.5"><input id="remember_me" type="checkbox" class="rounded border-slate-300 text-blue-600 shadow-sm focus:ring-blue-500" name="remember"><span class="text-sm text-slate-600">{{ __('Remember me') }}</span></label></div>
+        <button type="submit" class="btn-primary w-full">{{ __('Sign in') }} <span class="ml-2">→</span></button>
+    </form>
+    <p class="mt-7 text-center text-sm text-slate-500">New to CarePoint? <a class="font-bold text-blue-600 hover:text-blue-800" href="{{ route('register') }}">Create an account</a></p>
+</x-guest-layout>
